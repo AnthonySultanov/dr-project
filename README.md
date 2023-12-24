@@ -1,0 +1,1 @@
+when you start the program it asks you to make a username and password for the login once logged in why are saved in via the ticket then u cann add games to your list edit the score delete it from the list and there is a api which shows a list of games
