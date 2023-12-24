@@ -3,14 +3,14 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import GameContext from './GameContext';
-import { AuthContext } from './AuthContext'; // Import AuthContext
+import { AuthContext } from './AuthContext'; 
 
 export function Home() {
   const [games, setGames] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [addedGames, setAddedGames] = useState([]);
   
-  const { email } = useContext(AuthContext); // Access the email from AuthContext
+  const { email } = useContext(AuthContext); // get the email from the AuthContext
 
   const handleAddClick = (game) => {
     const rating = prompt(`Rate ${game.name} out of 10?`);
@@ -25,11 +25,11 @@ export function Home() {
     axios.post('http://localhost:5000/api/profile', profileGame, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}` // Include the token in the request header
+        Authorization: `Bearer ${localStorage.getItem('token')}` // send the token in the header
       }
     })
     .then(response => {
-      setAddedGames(addedGames => [...addedGames, response.data.game]); // Update addedGames state with the newly added game
+      setAddedGames(addedGames => [...addedGames, response.data.game]); // add the game to the addedGames array
     })
     .catch(error => {
       console.error(error);

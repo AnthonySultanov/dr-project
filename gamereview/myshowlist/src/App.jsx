@@ -17,7 +17,7 @@ import { Updatescore } from './components/updatescore';
 function AppNavbar() {
   const location = useLocation();
 
-  // Don't render the Navbar component if the current path is "/"
+
   if (location.pathname === '/') {
     return null;
   }

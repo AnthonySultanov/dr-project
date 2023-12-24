@@ -18,14 +18,14 @@ mongoose.connect('mongodb+srv://user:oTEChYWfUZsYxf4O@ppitusers.kfdmhbh.mongodb.
 }).catch(() => {
   console.log('Connection failed');
 });
-
+//user schema
 const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String
 });
-
+//user model
 const User = mongoose.model('User', userSchema);
-
+//user signup
 app.post('/api/signup', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -41,7 +41,7 @@ app.post('/api/signup', async (req, res) => {
     res.status(400).json({ error: 'Unable to sign up' });
   }
 });
-
+//user login
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -53,13 +53,14 @@ app.post('/api/login', async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ error: 'Invalid email or password' });
     }
+    // creates a token
     const token = jwt.sign({ userId: user._id }, 'secretkey');
     res.json({ token });
   } catch (error) {
     res.status(400).json({ error: 'Invalid email or password' });
   }
 });
-
+//profile page
 app.post('/api/profile', async (req, res) => {
   const { name,rating,background_image}=req.body;
 
@@ -78,7 +79,7 @@ app.post('/api/profile', async (req, res) => {
   
 });
 
-    
+    //profile retrieval 
 app.get('/api/profile', async (req, res) => {
   try {
     const games = await Game.find();
@@ -89,7 +90,7 @@ app.get('/api/profile', async (req, res) => {
   }
 });
 
-
+//profile deletion 
 app.delete('/api/profile/:gameId', async (req, res) => {
   const gameId = req.params.gameId;
 
@@ -101,7 +102,7 @@ app.delete('/api/profile/:gameId', async (req, res) => {
     res.status(400).json({ error: 'Unable to delete game from profile' });
   }
 });
-
+//profile update
 app.put('/api/profile/:gameId', async (req, res) => {
   const gameId = req.params.gameId;
   const { rating } = req.body;
@@ -110,7 +111,7 @@ app.put('/api/profile/:gameId', async (req, res) => {
     const updatedGame = await Game.findByIdAndUpdate(
       gameId,
       { rating },
-      { new: true } // Return the updated document
+      { new: true } // to return the updated object
     );
     res.json({ game: updatedGame });
   } catch (error) {

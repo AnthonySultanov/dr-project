@@ -27,7 +27,7 @@ export const Loginpage = () => {
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
         setLoggedIn(true);
-        // Redirect to home page
+        // redirect to home page
         navigate('/home');
       }
       
